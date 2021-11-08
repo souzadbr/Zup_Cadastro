@@ -1,19 +1,10 @@
 package br.com.zup.Cadastros.cadastro;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "cadastros")
-public class Cadastro {
-    @Id
+public class CadastroDTO {
     private String cpf;
-    @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
     private String sobrenome;
     private String cidade;
     private String bairro;
@@ -23,16 +14,7 @@ public class Cadastro {
     private int idade;
     private LocalDate dataDoCadastro;
 
-
-
-    public Cadastro() {
-    }
-    public LocalDate getDataDoCadastro() {
-        return dataDoCadastro;
-    }
-
-    public void setDataDoCadastro(LocalDate dataDoCadastro) {
-        this.dataDoCadastro = dataDoCadastro;
+    public CadastroDTO() {
     }
 
     public String getCpf() {
@@ -105,5 +87,13 @@ public class Cadastro {
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public LocalDate getDataDoCadastro() {
+        return dataDoCadastro;
+    }
+
+    public void setDataDoCadastro(LocalDate dataDoCadastro) {
+        this.dataDoCadastro = dataDoCadastro;
     }
 }
