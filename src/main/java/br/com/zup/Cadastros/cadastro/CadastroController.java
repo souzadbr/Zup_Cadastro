@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cadastros")
 public class CadastroController {
@@ -16,8 +18,15 @@ public class CadastroController {
          cadastroService.cadastrarPessoaModel(cadastroDTO);
     }
 
+    @GetMapping
+    public List <Cadastro> exibirCadastrosdaLista(){
+        return cadastroService.exibirTodosOsCadastros();
+    }
+
+
+
     /*
-    todo  1 - crie um metodo para cadastrar uma pessoa.
+    todo  1 - crie um metodo para cadastrar uma pessoa.CHECK
       Para um cadastro todo os campos são obrigatórios EXCETO o campo dataDoCadastro que deve ser preenchido pelo proprio sistema e o client não deve saber da existencia desse campo
      todo 2 - Faça um metodo que retorna a lista inteira de cadastros ou filtrado por cadastros que moram sozinhos, que tem pet ou por idade.
      nessa lista deve ser retornado apenas os campos ID, NOME e SOBRENOME.

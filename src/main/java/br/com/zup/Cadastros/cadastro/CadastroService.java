@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class CadastroService {
@@ -25,6 +26,11 @@ public class CadastroService {
         cadastroPessoa.setTemPet(cadastroDTO.isTemPet());
         cadastroRepository.save(cadastroPessoa);
 
+    }
+
+    public List<Cadastro> exibirTodosOsCadastros(){
+        //Esse (List<Cadastro>) está covnertendo o cadastroRepository para uma lista.
+        return (List<Cadastro>) cadastroRepository.findAll();
     }
 
 
