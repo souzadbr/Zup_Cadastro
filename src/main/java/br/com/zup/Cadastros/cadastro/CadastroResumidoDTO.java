@@ -8,6 +8,12 @@ public class CadastroResumidoDTO {
     public CadastroResumidoDTO() {
     }
 
+    public CadastroResumidoDTO(String cpf, String nome, String sobrenome) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
     public String getCpf() {
         return cpf;
     }

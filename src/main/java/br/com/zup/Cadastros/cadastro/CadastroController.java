@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,14 +15,22 @@ public class CadastroController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastroPessoa (@RequestBody CadastroDTO cadastroDTO){
-         cadastroService.cadastrarPessoaModel(cadastroDTO);
+    public void cadastroPessoa(@RequestBody CadastroDTO cadastroDTO) {
+        cadastroService.cadastrarPessoaModel(cadastroDTO);
     }
 
     @GetMapping
-    public List <Cadastro> exibirCadastrosdaLista(){
-        return cadastroService.exibirTodosOsCadastros();
+    public List<CadastroResumidoDTO> exibirCadastrosdaLista(CadastroResumidoDTO cadastroResumidoDTO) {
+        List<CadastroResumidoDTO> cadastroResumidoDTOS = new ArrayList<>();
+        for (Cadastro cadastroNovo : cadastroService.exibirTodosOsCadastros(cadastroResumidoDTO)) {
+            cadastroResumidoDTOS.add(new
+                    CadastroResumidoDTO(cadastroNovo.getNome(),cadastroNovo.getSobrenome(),cadastroNovo.getCpf()));
+        }
+        return cadastroResumidoDTOS;
     }
+
+}
+
 
 
 
@@ -34,4 +43,4 @@ public class CadastroController {
      todo 4 - faça um metodo que retorna TODOS os dados de um usuario pesquisado pelo ID.
      */
 
-}
+

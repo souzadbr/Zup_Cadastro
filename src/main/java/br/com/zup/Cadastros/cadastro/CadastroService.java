@@ -28,12 +28,10 @@ public class CadastroService {
 
     }
 
-    public List<Cadastro> exibirTodosOsCadastros(){
+    public List<Cadastro> exibirTodosOsCadastros(CadastroResumidoDTO cadastroResumidoDTO){
         //Esse (List<Cadastro>) está covnertendo o cadastroRepository para uma lista.
         return (List<Cadastro>) cadastroRepository.findAll();
     }
-
-
 
 
 }
