@@ -1,4 +1,4 @@
-package br.com.zup.Cadastros.cadastro;
+package br.com.zup.Cadastros.cadastro.dto;
 
 public class CadastroResumidoDTO {
     private String cpf;

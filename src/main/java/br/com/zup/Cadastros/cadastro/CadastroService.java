@@ -1,5 +1,7 @@
 package br.com.zup.Cadastros.cadastro;
 
+import br.com.zup.Cadastros.cadastro.exception.CadastroDuplicadoException;
+import br.com.zup.Cadastros.cadastro.exception.CadastroNaoExisteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,26 +13,36 @@ public class CadastroService {
     @Autowired
     private CadastroRepository cadastroRepository;
 
-    public void cadastrarPessoaModel(CadastroDTO cadastroDTO){
+    public Cadastro cadastrarPessoaModel(Cadastro cadastro){
 
-        Cadastro cadastroPessoa = new Cadastro();
-        cadastroPessoa.setDataDoCadastro(LocalDate.now());
-        cadastroPessoa.setBairro(cadastroDTO.getBairro());
-        cadastroPessoa.setCidade(cadastroDTO.getCidade());
-        cadastroPessoa.setCpf(cadastroDTO.getCpf());
-        cadastroPessoa.setIdade(cadastroDTO.getIdade());
-        cadastroPessoa.setNome(cadastroDTO.getNome());
-        cadastroPessoa.setSobrenome(cadastroDTO.getSobrenome());
-        cadastroPessoa.setMoraSozinho(cadastroDTO.isMoraSozinho());
-        cadastroPessoa.setNomeDoParenteProximo(cadastroDTO.getNomeDoParenteProximo());
-        cadastroPessoa.setTemPet(cadastroDTO.isTemPet());
-        cadastroRepository.save(cadastroPessoa);
+        if(cadastroRepository.existsById(cadastro.getCpf())){
+            throw new CadastroDuplicadoException();
+        }
+        cadastro.setDataDoCadastro(LocalDate.now());
+       return cadastroRepository.save(cadastro);
 
     }
 
-    public List<Cadastro> exibirTodosOsCadastros(CadastroResumidoDTO cadastroResumidoDTO){
+    public List<Cadastro> exibirTodosOsCadastros(Boolean moraSozinho, Integer idade, Boolean temPet){
         //Esse (List<Cadastro>) está covnertendo o cadastroRepository para uma lista.
+
+        if(moraSozinho !=null){
+            return cadastroRepository.findAllByMoraSozinho(moraSozinho);
+        }else if(idade !=null){
+            return cadastroRepository.findAllByIdade(idade);
+        }else if(temPet!=null) {
+            return cadastroRepository.findAllByTemPet(temPet);
+        }
         return (List<Cadastro>) cadastroRepository.findAll();
+    }
+
+    public void deletarCadastro (String cpf ){
+        if(cadastroRepository.existsById(cpf)){
+            cadastroRepository.deleteById(cpf);
+        }else {
+            throw new CadastroNaoExisteException();
+        }
+
     }
 
 

@@ -21,7 +21,7 @@ public class Cadastro {
     private boolean moraSozinho;
     private boolean temPet;
     private int idade;
-    private LocalDate dataDoCadastro;
+    private LocalDate dataDoCadastro;//cria a tabela de acordo com o tipo do atributo - cria aqui como date
 
 
 
