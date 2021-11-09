@@ -49,6 +49,10 @@ public class CadastroController {
         cadastroService.deletarCadastro(cpf);
     }
 
+    @GetMapping ("/{cpf}")
+    public Cadastro exibirCadastroPorId(@PathVariable String cpf){
+        return cadastroService.retornarCadastroPorId(cpf);
+    }
 }
 
 
